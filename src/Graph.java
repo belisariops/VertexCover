@@ -9,14 +9,14 @@ public class Graph {
     private List<Edge> E;
 
     public Graph(int numV, int numE) {
-        V = new ArrayList<Vertex>();
-        E = new ArrayList<Edge>();
+        V = new ArrayList<Vertex>(numV);
+        E = new ArrayList<Edge>(2*numE);
 
         for (int i=0; i < numV; i++) {
             V.add(new Vertex());
         }
 
-        for (int j=0; j < numE; j++) {
+        for (int j=0; j < 2*numE; j++) {
             E.add(new Edge());
         }
 
@@ -48,6 +48,11 @@ public class Graph {
     }
 
     public List<Edge> getE() {
+
         return E;
+    }
+
+    public List<Vertex> getV() {
+        return V;
     }
 }

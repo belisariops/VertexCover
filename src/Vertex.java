@@ -4,4 +4,5 @@
 public class Vertex {
     int first;
     int last;
+    int index;
 }

@@ -10,27 +10,37 @@ public class TwoAproximation {
     public TwoAproximation(Graph g) {
 
         List<Edge> currentEdges = g.getE();
-        List<Vertex> C = new ArrayList<Vertex>();
+        vertexCover = new ArrayList<Vertex>();
 
         while (currentEdges.size() > 0) {
             Edge edge = currentEdges.get(0);
             Vertex u = g.getVertexIn(edge.src);
             Vertex v = g.getVertexIn(edge.tgt);
-            C.add(u);
-            C.add(v);
+            vertexCover.add(u);
+            vertexCover.add(v);
 
-            for (int i = u.first; i <= u.last; i++)
+            Edge edgeToDelete;
+            for (int i = u.first; i <= u.last; i++) {
+                edgeToDelete = currentEdges.get(i);
+                /*Se borra la la copia de la arista (ej: (0,1)  (1,0) )*/
+                currentEdges.remove(edgeToDelete.cmp);
                 currentEdges.remove(i);
 
+            }
 
-            for (int j = v.first; j <= v.last; j++)
+
+            for (int j = v.first; j <= v.last; j++) {
+                edgeToDelete = currentEdges.get(j);
+                /*Se borra la la copia de la arista (ej: (0,1)  (1,0) )*/
+                currentEdges.remove(edgeToDelete.cmp);
                 currentEdges.remove(j);
+
+            }
 
 
 
 
         }
-        this.vertexCover = C;
     }
 
     public List<Vertex> getVertexCover() {

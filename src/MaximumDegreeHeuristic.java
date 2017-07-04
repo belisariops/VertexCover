@@ -10,22 +10,23 @@ public class MaximumDegreeHeuristic {
     public MaximumDegreeHeuristic(Graph g) {
         List<Edge> currentEdges = g.getE();
         List<Vertex> currentVertices = g.getV();
-        List<Vertex> C = new ArrayList<Vertex>();
+        vertexCover = new ArrayList<Vertex>();
         while (currentEdges.size() > 0) {
             Vertex u = getVertexWithMaxDegree(currentVertices);
             currentVertices.remove(u.index);
-            C.add(u);
+            vertexCover.add(u);
 
-            for (int i = u.first; i <= u.last; i++)
+            for (int i = u.first; i <= u.last; i++) {
+                currentEdges.remove(currentEdges.get(i).cmp);
                 currentEdges.remove(i);
+            }
 
 
         }
-        this.vertexCover = C;
 
     }
 
-    private Vertex getVertexWithMaxDegree(List<Vertex> currentVertices) {
+    public static Vertex getVertexWithMaxDegree(List<Vertex> currentVertices) {
         int maxDegree = -1;
         int localDegree;
         Vertex maxDegreeVertex = null;

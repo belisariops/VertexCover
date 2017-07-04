@@ -36,7 +36,6 @@ public class ImprovedTwoAproximation {
     private Vertex getMaximumDegreeNeighbour(Vertex u, List<Vertex> currentVertices, List<Edge> currentEdges) {
         int maximumDegree = -1;
         Vertex maxNeighbourDegreeVertex = null;
-        int index = 0;
         int neighbourDegree;
         for (int i=u.first;i<=u.last;i++) {
             Edge edge = currentEdges.get(i);

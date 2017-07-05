@@ -1,0 +1,234 @@
+Tiempo Construccion Grafo con p=0.005, 1024 nodos, 2665 aristas, construido en 0.025257657 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:890
+                 Tiempo de ejecucion:0.004285942 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:616
+                 Tiempo de ejecucion:0.041449664 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:786
+                 Tiempo de ejecucion:0.008168093 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=0.001, 1024 nodos, 585 aristas, construido en 0.010721891 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:586
+                 Tiempo de ejecucion:3.67686E-4 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:318
+                 Tiempo de ejecucion:0.004285105 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:494
+                 Tiempo de ejecucion:0.003227575 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=5.0E-4, 1024 nodos, 240 aristas, construido en 0.011393247 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:356
+                 Tiempo de ejecucion:1.83861E-4 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:180
+                 Tiempo de ejecucion:0.002195842 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:340
+                 Tiempo de ejecucion:0.001915358 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=0.001, 1024 nodos, 487 aristas, construido en 0.011353587 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:510
+                 Tiempo de ejecucion:2.6763E-4 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:282
+                 Tiempo de ejecucion:0.003659834 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:456
+                 Tiempo de ejecucion:0.00338387 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=0.05, 1024 nodos, 25904 aristas, construido en 0.074418339 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:1012
+                 Tiempo de ejecucion:0.006540718 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:936
+                 Tiempo de ejecucion:0.041813895 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:986
+                 Tiempo de ejecucion:0.023959098 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+**********************************************************************************************************************************************************************************************************************************************************************
+
+Tiempo Construccion Grafo con p=0.005, 1024 nodos, 2679 aristas, construido en 0.009579732 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:898
+                 Tiempo de ejecucion:3.40571E-4 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:621
+                 Tiempo de ejecucion:0.013897748 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:780
+                 Tiempo de ejecucion:0.007677319 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=0.001, 1024 nodos, 552 aristas, construido en 0.009156844 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:540
+                 Tiempo de ejecucion:5.4511E-5 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:300
+                 Tiempo de ejecucion:0.004123031 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:482
+                 Tiempo de ejecucion:0.003008412 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=5.0E-4, 1024 nodos, 252 aristas, construido en 0.009073813 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:330
+                 Tiempo de ejecucion:2.8577E-5 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:170
+                 Tiempo de ejecucion:0.001657334 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:294
+                 Tiempo de ejecucion:0.001434843 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=0.001, 1024 nodos, 528 aristas, construido en 0.009010291 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:538
+                 Tiempo de ejecucion:5.8268E-5 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:292
+                 Tiempo de ejecucion:0.003906899 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:480
+                 Tiempo de ejecucion:0.002958479 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=0.05, 1024 nodos, 25983 aristas, construido en 0.020353829 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:1010
+                 Tiempo de ejecucion:6.83132E-4 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:935
+                 Tiempo de ejecucion:0.037970884 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:980
+                 Tiempo de ejecucion:0.020520398 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+**********************************************************************************************************************************************************************************************************************************************************************
+
+Tiempo Construccion Grafo con p=0.005, 1024 nodos, 2610 aristas, construido en 0.009670914 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:882
+                 Tiempo de ejecucion:5.4997E-5 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:618
+                 Tiempo de ejecucion:0.011327421 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:796
+                 Tiempo de ejecucion:0.006748284 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=0.001, 1024 nodos, 471 aristas, construido en 0.008423487 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:516
+                 Tiempo de ejecucion:2.1513E-5 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:281
+                 Tiempo de ejecucion:0.003878911 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:468
+                 Tiempo de ejecucion:0.00292513 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=5.0E-4, 1024 nodos, 268 aristas, construido en 0.008375843 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:368
+                 Tiempo de ejecucion:1.1805E-5 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:191
+                 Tiempo de ejecucion:0.001909633 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:348
+                 Tiempo de ejecucion:0.001609045 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=0.001, 1024 nodos, 537 aristas, construido en 0.008448707 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:536
+                 Tiempo de ejecucion:1.8881E-5 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:299
+                 Tiempo de ejecucion:0.003840889 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:462
+                 Tiempo de ejecucion:0.002833409 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+Tiempo Construccion Grafo con p=0.05, 1024 nodos, 25951 aristas, construido en 0.019198657 segundos.
+
+2-Aproximacion:
+                 Cantidad de vertices solucion:1008
+                 Tiempo de ejecucion:2.12105E-4 segundos.
+
+Heuristica de grado mayor:
+                 Cantidad de vertices solucion:934
+                 Tiempo de ejecucion:0.036331494 segundos.
+
+2-Aproximacion mejorada:
+                 Cantidad de vertices solucion:986
+                 Tiempo de ejecucion:0.019818775 segundos.
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+**********************************************************************************************************************************************************************************************************************************************************************
+

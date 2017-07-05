@@ -1,70 +1,110 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        /*FileManager fManager = new FileManager();
-        Graph g = fManager.readGraphFromFile("unMillon.pg");
+        Timer timer = new Timer();
+        timer.start();
+        //Get the file reference
+        Path path = Paths.get("output.txt");
 
-        TwoAproximation algorithm = new TwoAproximation(g);
-        System.out.println(algorithm.getVertexCoverSize());*/
-        List<Integer> a = new ArrayList<Integer>(4);
-        a.add(1);
-        a.add(2);
-        a.add(3);
-        a.add(1, 4);
-        a.set(2,null);/*
-        for (Integer i : a)
-            System.out.println(i);*/
+        //Use try-with-resource to get auto-closeable writer instance
+        /*try (BufferedWriter writer = Files.newBufferedWriter(path))
+        {
 
-
-        List<Edge> edges = new ArrayList<Edge>(4);
-        Edge e1 = new Edge();
-        Edge e2 = new Edge();
-        Edge e3 = new Edge();
-        Edge e4 = new Edge();
-        e1.src = 1;
-        e1.tgt = 2;
-        e2.src = 1;
-        e2.tgt = 1;
-        e3.src = 2;
-        e3.tgt = 2;
-        e4.src = 0;
-        e4.tgt = 0;
-        edges.add(e1);
-        edges.add(e2);
-        edges.add(e3);
-        edges.add(e4);
-
-
-/*
-        for (Edge e : edges)
-            System.out.println("("+e.src+","+e.tgt+")");*/
-
+            writer.write(Long.toString(timer.stop()));
+            writer.newLine();
+            writer.write(Long.toString(timer.stop()));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+*/
+        Graph g1,g2,g3;
         GraphGenerator generator = new GraphGenerator();
-        Graph g = generator.create((int)Math.pow(2,10) ,0.01f);
-        Graph g2 = new Graph(g);
-        Graph g3 = new Graph(g);
+        TwoAproximation twoAproximation;
+        MaximumDegreeHeuristic maximumDegreeHeuristic;
+        ImprovedTwoAproximation improvedTwoAproximation;
 
-        TwoAproximation alg1 = new TwoAproximation(g);
-        List<Vertex> vert = alg1.getVertexCover();
+        int n;
+        double p;
+        double[] pArray = new double[]{0.005, 0.001, 0.0005, 0.001, 0.05};
+        String fileName;
+        double constructionTime,twoAproximationTime,maximumDegreeHeuristicTime,improvedTwoAproximationTime;
 
-        MaximumDegreeHeuristic alg2 = new MaximumDegreeHeuristic(g2);
-        List<Vertex> vert2 = alg2.getVertexCover();
+        for (int i= 10; i<=10; i++) {
+            n = (int) Math.pow(2, i);
+            fileName = "Experimento_i" + i + ".txt";
+            path = Paths.get(fileName);
+            try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+                for (int j = 0; j < 3; j++) {
+                    for (int k = 0; k < 5; k++) {
+                        p = pArray[k];
+                        timer.start();
+                        g1 = generator.create(n, p);
+                        constructionTime = timer.stop();
+                        g2 = new Graph(g1);
+                        g3 = new Graph(g1);
 
-        ImprovedTwoAproximation alg3 = new ImprovedTwoAproximation(g3);
-        List<Vertex> vert3 = alg3.getVertexCover();
-        /*for (int i =0;i < vert.size(); i++)
-            System.out.println(vert.get(i).first);*/
+                        timer.start();
+                        twoAproximation = new TwoAproximation(g1);
+                        twoAproximationTime = timer.stop();
 
-        System.out.println("Cantidad de vertices: "+ g.getV().size() + "  Vertices que cubren: " + vert.size());
-        System.out.println("Cantidad de vertices: "+ g.getV().size() + "  Vertices que cubren: " + vert2.size());
-        System.out.println("Cantidad de vertices: "+ g.getV().size() + "  Vertices que cubren: " + vert3.size());
+                        timer.start();
+                        maximumDegreeHeuristic = new MaximumDegreeHeuristic(g2);
+                        maximumDegreeHeuristicTime = timer.stop();
 
+                        timer.start();
+                        improvedTwoAproximation = new ImprovedTwoAproximation(g3);
+                        improvedTwoAproximationTime = timer.stop();
 
+                        writer.write("Tiempo Construccion Grafo con p="+p+", "+g1.getV().size()+" nodos, "+g1.getE().size()/2+" aristas, construido en "+constructionTime+" segundos.");
+                        writer.newLine();
+                        writer.newLine();
+                        writer.write("2-Aproximacion:");
+                        writer.newLine();
+                        writer.write("                 Cantidad de vertices solucion:"+twoAproximation.getVertexCoverSize());
+                        writer.newLine();
+                        writer.write("                 Tiempo de ejecucion:"+twoAproximationTime+" segundos.");
+                        writer.newLine();
+                        writer.newLine();
+                        writer.write("Heuristica de grado mayor:");
+                        writer.newLine();
+                        writer.write("                 Cantidad de vertices solucion:"+maximumDegreeHeuristic.getVertexCoverSize());
+                        writer.newLine();
+                        writer.write("                 Tiempo de ejecucion:"+maximumDegreeHeuristicTime+" segundos.");
+                        writer.newLine();
+                        writer.newLine();
+                        writer.write("2-Aproximacion mejorada:");
+                        writer.newLine();
+                        writer.write("                 Cantidad de vertices solucion:"+improvedTwoAproximation.getVertexCoverSize());
+                        writer.newLine();
+                        writer.write("                 Tiempo de ejecucion:"+improvedTwoAproximationTime+" segundos.");
+                        writer.newLine();
+                        writer.newLine();
+                        writer.write("------------------------------------------------------------------------------------------------------------------------------------");
+                        writer.newLine();
 
+                    }
+                    writer.newLine();
+                    writer.write("***********************************************************************************************************************************");
+                    writer.write("***********************************************************************************************************************************");
+                    writer.newLine();
+                    writer.newLine();
 
+                }
+                writer.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }

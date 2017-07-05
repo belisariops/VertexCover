@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public class GraphGenerator {
 
-    public Graph create(int n, float p) {
+    public Graph create(int n, double p) {
         int f=0;
         List<Vertex> vertices = new ArrayList<Vertex>(n);
 

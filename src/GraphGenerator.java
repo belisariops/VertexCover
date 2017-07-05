@@ -7,22 +7,23 @@ import java.util.Random;
  */
 public class GraphGenerator {
 
-    public Graph create(int n, int p) {
+    public Graph create(int n, float p) {
+        int f=0;
         List<Vertex> vertices = new ArrayList<Vertex>(n);
-        for (int i=0; i<n; i++)
-            vertices.add(new Vertex());
 
         List<Edge> edges = new ArrayList<Edge>();
         Random r = new Random();
         float chance;
+        int m = 0;
 
         /*Se crean las aristas con probabilidad p*/
         Edge randEdge;
-        Edge reflexEdge;
-        List<Integer> verticesDegrees = new ArrayList<Integer>();
 
-        for (int l = 0; l < n; l++)
-            verticesDegrees.add(0);
+        List<List<Edge>> buckets = new ArrayList<List<Edge>>(n);
+
+        for (int i =0; i<n; i++)
+            buckets.add(new ArrayList<Edge>(n-1));
+
 
         /*Segun enunciado*/
         for(int j=0; j < n ; j++) {
@@ -33,46 +34,131 @@ public class GraphGenerator {
                     randEdge.src = j;
                     randEdge.tgt = k;
                     randEdge.cmp = -1;
-                    verticesDegrees.set(j,verticesDegrees.get(j)+1);
-                    edges.add(randEdge);
+                    buckets.get(j).add(randEdge);
 
-                    reflexEdge = new Edge();
-                    reflexEdge.src = k;
-                    reflexEdge.tgt = j;
-                    reflexEdge.cmp = -1;
-                    verticesDegrees.set(k,verticesDegrees.get(k)+1);
-                    edges.add(reflexEdge);
                 }
             }
         }
 
-        List<List<Edge>> buckets;
+        /*Se crean las aristas con las dos direcciones (ej: (u,v) y (v,u)), para la lista de adyacencia*/
+        boolean foundEdge = false;
+
+        for (int i =0; i<n; i++) {
+            m = buckets.get(i).size();
+            for (int j =0; j < m; j++) {
+                Edge bucketEdge = buckets.get(i).get(j);
+                if (bucketEdge.src == bucketEdge.tgt)
+                    continue;
+                List<Edge> otherBucket = buckets.get(bucketEdge.tgt);
+                int otherBucketSize = otherBucket.size();
+
+                for (int k =0; k < otherBucketSize; k++) {
+                    Edge thisEdge = otherBucket.get(k);
+                    if (thisEdge.tgt == bucketEdge.src) {
+                        foundEdge = true;
+                        break;
+                    }
+                }
+
+                Edge mirrorEdge = new Edge();
+                mirrorEdge.src = bucketEdge.tgt;
+                mirrorEdge.tgt = bucketEdge.src;
+                mirrorEdge.cmp = -1;
+
+                if (foundEdge == false)
+                    buckets.get(bucketEdge.tgt).add(mirrorEdge);
+                foundEdge = false;
+            }
+        }
+        Vertex v;
+        int position=0;
+        for (List<Edge> bucket : buckets) {
+            v = new Vertex();
+            v.first = position;
+            v.last = bucket.size() + position - 1;
+
+            if (v.first > v.last) {
+                v.first =-1;
+                v.last = -2;
+                f++;
+                vertices.add(v);
+                continue;
+            }
+            vertices.add(v);
+            edges.addAll(bucket);
+            position = v.last+1;
+        }
+
+
+        /*for (Vertex vert : vertices)
+            System.out.println("("+vert.first+","+vert.last+")");
+        System.out.println("----------------------------------------");*/
+
+
+        m = edges.size();
+        Vertex target;
+        boolean cmpFound = false;
+        for (int i=0; i<m; i++) {
+            target = vertices.get(edges.get(i).tgt);
+
+            for (int j = target.first; j <= target.last; j++) {
+                if (j < 0)
+                    continue;
+                if (edges.get(j).cmp != -1) {
+                    cmpFound = true;
+                    continue;
+                }
+                if (edges.get(j).tgt == edges.get(i).src) {
+                    edges.get(j).cmp = i;
+                    edges.get(i).cmp = j;
+                    cmpFound = true;
+                    break;
+                }
+            }
+            if (!cmpFound)
+                System.out.println("No se encontro arista espejo de ("+edges.get(i).src+","+edges.get(i).tgt+")");
+            cmpFound = false;
+        }
+
+        /*for (Edge e : edges)
+            System.out.println("("+e.src+","+e.tgt+") cmp="+ e.cmp);*/
+
+        Graph g = new Graph(vertices,edges);
+
+
+
+
+
+
+
+        /*Bucket-Sort aristas*/
+        /*List<List<Edge>> buckets;
         int size = edges.size();
-        for (int h=0; h<2; h++) {
+        for (int h = 0; h < 1; h++) {
             buckets = new ArrayList<List<Edge>>(size);
 
-            for (int i=0; i < n; i++)
-                buckets.set(i,new ArrayList<Edge>());
+            for (int i = 0; i < n; i++)
+                buckets.add(new ArrayList<Edge>());
 
 
-            for (int i=1; i <= n; i++)
-                if (h==0)
-                    buckets.get((int)Math.floor(n*(edges.get(i).src))).add(edges.get(i));
+            for (int i = 0; i <= n-1; i++)
+                if (h == 0)
+                    buckets.get((edges.get(i).src)).add(edges.get(i));
                 else
-                    buckets.get((int)Math.floor(n*(edges.get(i).tgt))).add(edges.get(i));
+                    buckets.get( (edges.get(i).tgt)).add(edges.get(i));
 
-            for (int i=0; i<n; i++) {
+            for (int i = 0; i < n; i++) {
                 List<Edge> sortingList = buckets.get(i);
-                for (int j=1; j<sortingList.size(); j++) {
-                    int k=0;
-                    Edge temp = sortingList.get(i);
-                    if (h==0)
-                        for (k = j-1; j>=0 && temp.src < sortingList.get(k).src; k++)
-                            sortingList.set(k+1,sortingList.get(k));
+                for (int j = 1; j < sortingList.size(); j++) {
+                    int k;
+                    Edge temp = sortingList.get(j);
+                    if (h == 0)
+                        for (k = j - 1; k >= 0 && temp.tgt < sortingList.get(k).tgt; k--)
+                            sortingList.set(k + 1, sortingList.get(k));
                     else
-                        for (k = j-1; j>=0 && temp.tgt < sortingList.get(k).tgt; k++)
-                            sortingList.set(k+1,sortingList.get(k));
-                    sortingList.set(k+1,temp);
+                        for (k = j - 1; k >= 0 && temp.tgt < sortingList.get(k).tgt; k--)
+                            sortingList.set(k + 1, sortingList.get(k));
+                    sortingList.set(k + 1, temp);
 
                 }
             }
@@ -80,12 +166,53 @@ public class GraphGenerator {
             for (int i =0; i<n; i++) {
                 edges.addAll(buckets.get(i));
             }
+        }*/
+/*
+
+        Edge currentEdge,auxEdge;
+        int target;
+        int j;
+        int i = 0;
+        boolean found = false;
+        while((currentEdge = edges.get(i)) != null) {
+            target = currentEdge.tgt;
+            j=i+1;
+
+            if (target < currentEdge.src) {
+                i++;
+                continue;
+            }
+
+            while ((auxEdge = edges.get(j))!= null) {
+                if (auxEdge.src == target) {
+                    while (auxEdge.tgt != currentEdge.src ) {
+                        if (auxEdge.src != currentEdge.tgt) {
+                            Edge e = new Edge();
+                            e.src = currentEdge.tgt;
+                            e.tgt = currentEdge.src;
+                            try {
+                                edges.add(j,e);
+                            }
+                            catch (IndexOutOfBoundsException error) {
+                                edges.add(e);
+                            }
+                            break;
+                        }
 
 
+
+                    }
+                }
+                else {
+                    j++;
+                    continue;
+                }
+                break;
+
+            }
+            i++;
         }
-
-
-
+*/
 
 
 
@@ -126,7 +253,8 @@ public class GraphGenerator {
            currentStart = currentStart + neighbours;
            index++;
        }*/
-       return null;
+       //System.out.println(f);
+       return g;
     }
 
 

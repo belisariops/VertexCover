@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by belisariops on 7/3/17.
@@ -40,10 +41,10 @@ public class FileManager {
             int source = 0;
             int otherSource = -1;
 
+
+
             for (int edgeNum = 0; edgeNum < m; edgeNum++) {
                 currentLine = br.readLine();
-                if (edgeNum == 2999978)
-                    System.out.println(br.readLine());
                 String[] auxLine = currentLine.split(" ");
                 source = Integer.parseInt(auxLine[0]);
                 target = Integer.parseInt(auxLine[1]);
@@ -92,12 +93,12 @@ public class FileManager {
             int j = 0;
             for (j = target.first; j <= target.last; j++) {
                 Edge jEdge = g.getEdgeIn(j);
-                if ((jEdge.cmp == -1) && (jEdge.tgt == jEdge.src) && (i!=j))
+                if ((jEdge.cmp == -1) && (jEdge.tgt == currentEdge.src) && (i!=j))      
                     cmp = j;
             }
 
             if (cmp != -1) {
-                currentEdge.cmp = cmp;
+                g.getEdgeIn(i).cmp = cmp;
                 g.getEdgeIn(cmp).cmp = i;
             }
         }

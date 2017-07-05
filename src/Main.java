@@ -14,8 +14,9 @@ public class Main {
         a.add(2);
         a.add(3);
         a.add(1, 4);
+        a.set(2,null);/*
         for (Integer i : a)
-            System.out.println(i);
+            System.out.println(i);*/
 
 
         List<Edge> edges = new ArrayList<Edge>(4);
@@ -29,52 +30,40 @@ public class Main {
         e2.tgt = 1;
         e3.src = 2;
         e3.tgt = 2;
-        e4.src = 2;
-        e4.tgt = 1;
+        e4.src = 0;
+        e4.tgt = 0;
         edges.add(e1);
         edges.add(e2);
         edges.add(e3);
         edges.add(e4);
-        int n = 4;
-        List<List<Edge>> buckets;
-        int size = edges.size();
-        for (int h = 0; h < 2; h++) {
-            buckets = new ArrayList<List<Edge>>(size);
-
-            for (int i = 0; i < n; i++)
-                buckets.add(new ArrayList<Edge>());
 
 
-            for (int i = 0; i <= n-1; i++)
-                if (h == 0)
-                    buckets.get((edges.get(i).src)).add(edges.get(i));
-                else
-                    buckets.get( (edges.get(i).tgt)).add(edges.get(i));
-
-            for (int i = 0; i < n; i++) {
-                List<Edge> sortingList = buckets.get(i);
-                for (int j = 1; j < sortingList.size(); j++) {
-                    int k = 0;
-                    Edge temp = sortingList.get(j);
-                    if (h == 0)
-                        for (k = j - 1; j >= 0 && temp.src < sortingList.get(k).src; k++)
-                            sortingList.set(k + 1, sortingList.get(k));
-                    else
-                        for (k = j - 1; j >= 0 && temp.tgt < sortingList.get(k).tgt; k++)
-                            sortingList.set(k + 1, sortingList.get(k));
-                    sortingList.set(k + 1, temp);
-
-                }
-            }
-            edges = new ArrayList<Edge>();
-            for (int i =0; i<n; i++) {
-                edges.addAll(buckets.get(i));
-            }
-
-        }
-
+/*
         for (Edge e : edges)
-            System.out.println("("+e.src+","+e.tgt+")");
+            System.out.println("("+e.src+","+e.tgt+")");*/
+
+        GraphGenerator generator = new GraphGenerator();
+        Graph g = generator.create((int)Math.pow(2,10) ,0.01f);
+        Graph g2 = new Graph(g);
+        Graph g3 = new Graph(g);
+
+        TwoAproximation alg1 = new TwoAproximation(g);
+        List<Vertex> vert = alg1.getVertexCover();
+
+        MaximumDegreeHeuristic alg2 = new MaximumDegreeHeuristic(g2);
+        List<Vertex> vert2 = alg2.getVertexCover();
+
+        ImprovedTwoAproximation alg3 = new ImprovedTwoAproximation(g3);
+        List<Vertex> vert3 = alg3.getVertexCover();
+        /*for (int i =0;i < vert.size(); i++)
+            System.out.println(vert.get(i).first);*/
+
+        System.out.println("Cantidad de vertices: "+ g.getV().size() + "  Vertices que cubren: " + vert.size());
+        System.out.println("Cantidad de vertices: "+ g.getV().size() + "  Vertices que cubren: " + vert2.size());
+        System.out.println("Cantidad de vertices: "+ g.getV().size() + "  Vertices que cubren: " + vert3.size());
+
+
+
 
 
     }

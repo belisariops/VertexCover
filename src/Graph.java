@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by belisariops on 7/3/17.
@@ -16,10 +17,51 @@ public class Graph {
             V.add(new Vertex());
         }
 
+        Edge e;
         for (int j=0; j < 2*numE; j++) {
-            E.add(new Edge());
+            e = new Edge();
+            e.cmp=-1;
+            E.add(e);
         }
 
+    }
+
+    public Graph(Graph g) {
+        List<Vertex> verticesToCopy = g.getV();
+        List<Edge> edgesToCopy = g.getE();
+        int n = verticesToCopy.size();
+        int m = edgesToCopy.size();
+        this.V = new ArrayList<Vertex>(n);
+        this.E = new ArrayList<Edge>(m);
+        Vertex v;
+        Vertex vCopy;
+        for (int i=0; i<n; i++) {
+            vCopy = new Vertex();
+            v = verticesToCopy.get(i);
+            vCopy.first = v.first;
+            vCopy.last = v.last;
+            vCopy.index = v.index;
+            this.V.add(vCopy);
+        }
+
+        Edge e;
+        Edge eCopy;
+        for (int j=0; j<m; j++) {
+            eCopy = new Edge();
+            e = edgesToCopy.get(j);
+            eCopy.src = e.src;
+            eCopy.tgt = e.tgt;
+            eCopy.cmp = e.cmp;
+            this.E.add(eCopy);
+        }
+
+
+
+    }
+
+    public Graph(List<Vertex> vertices,List<Edge> edges) {
+        this.V = vertices;
+        this.E = edges;
     }
 
     public void setFirstTo(int position, int first) {

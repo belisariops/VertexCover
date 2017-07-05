@@ -11,23 +11,44 @@ public class ImprovedTwoAproximation {
         List<Vertex> currentVertices = g.getV();
         List<Edge> currentEdges = g.getE();
         vertexCover = new ArrayList<Vertex>();
+        int edgeCount = currentEdges.size();
+        while (edgeCount > 0) {
+            Vertex u = MaximumDegreeHeuristic.getVertexWithMaxDegree(currentVertices, currentEdges);
+            Vertex v = getMaximumDegreeNeighbour(u, currentVertices, currentEdges);
 
-        while (currentEdges.size() > 0) {
-            Vertex u =MaximumDegreeHeuristic.getVertexWithMaxDegree(currentVertices);
-            Vertex v = getMaximumDegreeNeighbour(u,currentVertices,currentEdges);
-            currentVertices.remove(u.index);
-            currentVertices.remove(v.index);
+
+            currentVertices.set(u.index,null);
             vertexCover.add(u);
-            vertexCover.add(v);
 
-            for (int i=u.first; i<=u.last; i++) {
-                currentEdges.remove(currentEdges.get(i).cmp);
-                currentEdges.remove(i);
+            if (v == null) {
+                if (currentVertices.size() == 1) {
+                    break;
+                }
+
+                currentVertices.set(u.index,null);
+                continue;
+
             }
 
-            for (int j=v.first; j<=v.last; j++) {
-                currentEdges.remove(currentEdges.get(j).cmp);
-                currentEdges.remove(j);
+            currentVertices.set(v.index,null);
+
+            vertexCover.add(v);
+
+            for (int i = u.first; i <= u.last; i++) {
+
+                if (currentEdges.get(i) == null)
+                    continue;
+                currentEdges.set(currentEdges.get(i).cmp,null);
+                currentEdges.set(i,null);
+                edgeCount -=2;
+            }
+
+            for (int j = v.first; j <= v.last; j++) {
+                if (currentEdges.get(j) == null)
+                    continue;
+                currentEdges.set(currentEdges.get(j).cmp,null);
+                currentEdges.set(j,null);
+                edgeCount -=2;
             }
 
         }
@@ -38,7 +59,11 @@ public class ImprovedTwoAproximation {
         Vertex maxNeighbourDegreeVertex = null;
         int neighbourDegree;
         for (int i=u.first;i<=u.last;i++) {
+            if (i < 0)
+                return null;
             Edge edge = currentEdges.get(i);
+            if (edge == null)
+                continue;
             int neighbourIndex  = edge.tgt;
             if (neighbourIndex == edge.src)
                 continue;
@@ -58,4 +83,7 @@ public class ImprovedTwoAproximation {
     }
 
 
+    public List<Vertex> getVertexCover() {
+        return vertexCover;
+    }
 }

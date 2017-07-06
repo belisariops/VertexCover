@@ -40,9 +40,9 @@ public class Main {
                  BufferedWriter writerData = Files.newBufferedWriter(pathData)) {
                 for (int j = 0; j < 3; j++) {
                     for (int k = 0; k < 5; k++) {
-                        p = pArray[k];
+                        p = pArray[k]/n;
                         timer.start();
-                        g1 = generator.create(n, p/n);
+                        g1 = generator.create(n, p);
                         constructionTime = timer.stop();
                         g2 = new Graph(g1);
                         g3 = new Graph(g1);
@@ -59,7 +59,7 @@ public class Main {
                         improvedTwoAproximation = new ImprovedTwoAproximation(g3);
                         improvedTwoAproximationTime = timer.stop();
 
-                        writerData.write(n+","+j+","+p/n+","+constructionTime+","+twoAproximationTime+","+maximumDegreeHeuristicTime+","+improvedTwoAproximationTime);
+                        writerData.write(n+","+j+","+p+","+constructionTime+","+twoAproximationTime+","+maximumDegreeHeuristicTime+","+improvedTwoAproximationTime);
                         writerData.newLine();
                         writer.write("Tiempo Construccion Grafo con p="+p+", "+g1.getV().size()+" nodos, "+g1.getE().size()/2+" aristas, construido en "+constructionTime+" segundos.");
                         writer.newLine();

@@ -3,11 +3,12 @@ import java.util.List;
 
 /**
  * Created by belisariops on 7/4/17.
+ *
  */
-public class MaximumDegreeHeuristic {
+class MaximumDegreeHeuristic {
     private List<Vertex> vertexCover;
 
-    public MaximumDegreeHeuristic(Graph g) {
+    MaximumDegreeHeuristic(Graph g) {
         List<Edge> currentEdges = g.getE();
         List<Vertex> currentVertices = g.getV();
         int edgesCount = currentEdges.size();
@@ -32,7 +33,7 @@ public class MaximumDegreeHeuristic {
 
     }
 
-    public static Vertex getVertexWithMaxDegree(List<Vertex> currentVertices,List<Edge> currentEdges) {
+    static Vertex getVertexWithMaxDegree(List<Vertex> currentVertices,List<Edge> currentEdges) {
         int maxDegree = -1;
         int localDegree;
         Vertex maxDegreeVertex = null;
@@ -64,11 +65,7 @@ public class MaximumDegreeHeuristic {
         return maxDegreeVertex;
     }
 
-    public List<Vertex> getVertexCover() {
-        return vertexCover;
-    }
-
-    public int getVertexCoverSize() {
+    int getVertexCoverSize() {
         return vertexCover.size();
     }
 }

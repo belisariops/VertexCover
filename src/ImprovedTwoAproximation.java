@@ -3,14 +3,15 @@ import java.util.List;
 
 /**
  * Created by belisariops on 7/4/17.
+ * F:R
  */
-public class ImprovedTwoAproximation {
-    List<Vertex> vertexCover;
+class ImprovedTwoAproximation {
+    private List<Vertex> vertexCover;
 
-    public ImprovedTwoAproximation(Graph g) {
+    ImprovedTwoAproximation(Graph g) {
         List<Vertex> currentVertices = g.getV();
         List<Edge> currentEdges = g.getE();
-        vertexCover = new ArrayList<Vertex>();
+        vertexCover = new ArrayList<>();
         int edgeCount = currentEdges.size();
         while (edgeCount > 0) {
             Vertex u = MaximumDegreeHeuristic.getVertexWithMaxDegree(currentVertices, currentEdges);
@@ -86,12 +87,7 @@ public class ImprovedTwoAproximation {
         return maxNeighbourDegreeVertex;
     }
 
-
-    public List<Vertex> getVertexCover() {
-        return vertexCover;
-    }
-
-    public int getVertexCoverSize() {
+    int getVertexCoverSize() {
         return vertexCover.size();
     }
 }

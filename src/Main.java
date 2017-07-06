@@ -38,6 +38,8 @@ public class Main {
             pathData = Paths.get(fileNameData);
             try (BufferedWriter writer = Files.newBufferedWriter(path);
                  BufferedWriter writerData = Files.newBufferedWriter(pathData)) {
+                writerData.write("NumVertices,NumGrafo,Probabilidad,tiempoContruccion,Tiempo2Aproximacion,TiempoMaximumDegree,Tiempo2ApriximacionMejorada");
+                writerData.newLine();
                 for (int j = 0; j < 3; j++) {
                     for (int k = 0; k < 5; k++) {
                         p = pArray[k]/n;

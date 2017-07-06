@@ -69,8 +69,12 @@ public class ImprovedTwoAproximation {
                 continue;
 
             Vertex neighbour = currentVertices.get(neighbourIndex);
-            neighbourDegree = neighbour.last - neighbour.first + 1;
-
+            try {
+                neighbourDegree = neighbour.last - neighbour.first + 1;
+            }
+            catch (NullPointerException e) {
+                return null;
+            }
             if (neighbourDegree > maximumDegree) {
                 maximumDegree = neighbourDegree;
                 neighbour.index = neighbourIndex;

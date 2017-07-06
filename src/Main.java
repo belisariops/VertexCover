@@ -43,9 +43,10 @@ public class Main {
             System.out.println("("+e.src+","+e.tgt+")");*/
 
         GraphGenerator generator = new GraphGenerator();
-        Graph g = generator.create((int)Math.pow(2,10) ,0.01f);
-        Graph g2 = new Graph(g);
+        Graph g = generator.create((int)Math.pow(2,13) ,0.1f);
+        /*Graph g2 = new Graph(g);
         Graph g3 = new Graph(g);
+        Graph g4 = new Graph(g);
 
         TwoAproximation alg1 = new TwoAproximation(g);
         List<Vertex> vert = alg1.getVertexCover();
@@ -55,12 +56,12 @@ public class Main {
 
         ImprovedTwoAproximation alg3 = new ImprovedTwoAproximation(g3);
         List<Vertex> vert3 = alg3.getVertexCover();
-        /*for (int i =0;i < vert.size(); i++)
-            System.out.println(vert.get(i).first);*/
+        for (int i =0;i < vert.size(); i++)
+            System.out.println(vert.get(i).first);
 
         System.out.println("Cantidad de vertices: "+ g.getV().size() + "  Vertices que cubren: " + vert.size());
         System.out.println("Cantidad de vertices: "+ g.getV().size() + "  Vertices que cubren: " + vert2.size());
-        System.out.println("Cantidad de vertices: "+ g.getV().size() + "  Vertices que cubren: " + vert3.size());
+        System.out.println("Cantidad de vertices: "+ g.getV().size() + "  Vertices que cubren: " + vert3.size());*/
 
 
 

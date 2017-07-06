@@ -1,14 +1,14 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.function.Function;
 
 /**
  * Created by belisariops on 7/4/17.
  */
+
 public class GraphGenerator {
 
     public Graph create(int n, float p) {
-        int f=0;
         List<Vertex> vertices = new ArrayList<Vertex>(n);
 
         List<Edge> edges = new ArrayList<Edge>();
@@ -65,11 +65,19 @@ public class GraphGenerator {
                 mirrorEdge.tgt = bucketEdge.src;
                 mirrorEdge.cmp = -1;
 
-                if (foundEdge == false)
+                if (!foundEdge)
                     buckets.get(bucketEdge.tgt).add(mirrorEdge);
                 foundEdge = false;
             }
         }
+
+        for(List<Edge> bucket: buckets) {
+            bucket.sort(Comparator.comparing(Edge::getTgt));
+        }
+
+        ArrayList<Edge> sortedY = this.merge(this.invert(buckets));
+
+
         Vertex v;
         int position=0;
         for (List<Edge> bucket : buckets) {
@@ -80,12 +88,12 @@ public class GraphGenerator {
             if (v.first > v.last) {
                 v.first =-1;
                 v.last = -2;
-                f++;
+                //f++;
                 vertices.add(v);
                 continue;
             }
             vertices.add(v);
-            edges.addAll(bucket);
+            //edges.addAll(bucket);
             position = v.last+1;
         }
 
@@ -95,7 +103,7 @@ public class GraphGenerator {
         System.out.println("----------------------------------------");*/
 
 
-        m = edges.size();
+        /*m = edges.size();
         Vertex target;
         boolean cmpFound = false;
         for (int i=0; i<m; i++) {
@@ -118,143 +126,76 @@ public class GraphGenerator {
             if (!cmpFound)
                 System.out.println("No se encontro arista espejo de ("+edges.get(i).src+","+edges.get(i).tgt+")");
             cmpFound = false;
-        }
+        }*/
 
         /*for (Edge e : edges)
             System.out.println("("+e.src+","+e.tgt+") cmp="+ e.cmp);*/
 
-        Graph g = new Graph(vertices,edges);
+       return new Graph(vertices,sortedY);
+    }
 
-
-
-
-
-
-
-        /*Bucket-Sort aristas*/
-        /*List<List<Edge>> buckets;
-        int size = edges.size();
-        for (int h = 0; h < 1; h++) {
-            buckets = new ArrayList<List<Edge>>(size);
-
-            for (int i = 0; i < n; i++)
-                buckets.add(new ArrayList<Edge>());
-
-
-            for (int i = 0; i <= n-1; i++)
-                if (h == 0)
-                    buckets.get((edges.get(i).src)).add(edges.get(i));
-                else
-                    buckets.get( (edges.get(i).tgt)).add(edges.get(i));
-
-            for (int i = 0; i < n; i++) {
-                List<Edge> sortingList = buckets.get(i);
-                for (int j = 1; j < sortingList.size(); j++) {
-                    int k;
-                    Edge temp = sortingList.get(j);
-                    if (h == 0)
-                        for (k = j - 1; k >= 0 && temp.tgt < sortingList.get(k).tgt; k--)
-                            sortingList.set(k + 1, sortingList.get(k));
-                    else
-                        for (k = j - 1; k >= 0 && temp.tgt < sortingList.get(k).tgt; k--)
-                            sortingList.set(k + 1, sortingList.get(k));
-                    sortingList.set(k + 1, temp);
-
-                }
+    private ArrayList<ArrayList<Edge>> invert(List<List<Edge>> buckets) {
+        ArrayList<ArrayList<Edge>> result = new ArrayList<>();
+        int acc = 0;
+        for (List<Edge> list : buckets){
+            ArrayList<Edge> element = new ArrayList<>();
+            for(Edge e: list){
+                Edge ed = new Edge();
+                ed.tgt = e.src;
+                ed.src = e.tgt;
+                ed.cmp = acc + list.indexOf(e);
+                element.add(ed);
             }
-            edges = new ArrayList<Edge>();
-            for (int i =0; i<n; i++) {
-                edges.addAll(buckets.get(i));
-            }
-        }*/
-/*
-
-        Edge currentEdge,auxEdge;
-        int target;
-        int j;
-        int i = 0;
-        boolean found = false;
-        while((currentEdge = edges.get(i)) != null) {
-            target = currentEdge.tgt;
-            j=i+1;
-
-            if (target < currentEdge.src) {
-                i++;
-                continue;
-            }
-
-            while ((auxEdge = edges.get(j))!= null) {
-                if (auxEdge.src == target) {
-                    while (auxEdge.tgt != currentEdge.src ) {
-                        if (auxEdge.src != currentEdge.tgt) {
-                            Edge e = new Edge();
-                            e.src = currentEdge.tgt;
-                            e.tgt = currentEdge.src;
-                            try {
-                                edges.add(j,e);
-                            }
-                            catch (IndexOutOfBoundsException error) {
-                                edges.add(e);
-                            }
-                            break;
-                        }
-
-
-
-                    }
-                }
-                else {
-                    j++;
-                    continue;
-                }
-                break;
-
-            }
-            i++;
+            result.add(element);
+            acc += list.size();
         }
-*/
 
+        return result;
+    }
 
+    private ArrayList<Edge> merge(ArrayList<ArrayList<Edge>> list){
+        if(list.size() == 1){
+            return list.get(0);
+        }
+        return recMerge(new ArrayList<>(list.subList(0,list.size()/2)),new ArrayList<>(list.subList(list.size()/2,list.size())));
+    }
 
-
-
-       /* for (int i = 0; i < (n*(n-1))/2; i++) {
-            chance = r.nextFloat();
-
-            if (chance < p) {
-
-            }
-        }*/
-       /*List<Vertex> auxVertices = vertices;
-       int index = 0;
-       int auxIndex = 1;
-       int currentStart = 0;
-       int neighbours;
-       Edge auxEdge;
-       for (Vertex vertex : vertices) {
-           auxVertices.remove(index);
-           vertex.first = currentStart;
-           neighbours = 0;
-           for (Vertex aux: auxVertices) {
-
-
-                chance = r.nextFloat();
-
-                if (chance < p) {
-                    auxEdge = new Edge();
-                    auxEdge.src = index;
-                    auxEdge.tgt = auxIndex;
-                    neighbours++;
-                    edges.add(auxEdge);
+    private ArrayList<Edge> recMerge(ArrayList<ArrayList<Edge>> list1, ArrayList<ArrayList<Edge>> list2){
+        ArrayList<Edge> result = new ArrayList<>();
+        ArrayList<Edge> result1;
+        ArrayList<Edge> result2;
+        if(list1.size()>1){
+            result1 = recMerge(new ArrayList<>(list1.subList(0,list1.size()/2)),new ArrayList<>(list1.subList(list1.size()/2,list1.size())));
+        }else{
+            result1 = list1.get(0);
+        }
+        if(list2.size()>1){
+            result2 = recMerge(new ArrayList<>(list2.subList(0,list2.size()/2)),new ArrayList<>(list2.subList(list2.size()/2,list2.size())));
+        }else{
+            result2 = list2.get(0);
+        }
+        int i = 0, j = 0;
+        while(i < result1.size() || j < result2.size()){
+            if(i < result1.size() && j < result2.size()) {
+                if (result1.get(i).src <= result2.get(j).src) {
+                    result.add(result1.get(i));
+                    i++;
+                } else {
+                    result.add(result2.get(j));
+                    j++;
                 }
-                auxIndex++;
-           }
-           vertex.last = currentStart + neighbours - 1;
-           currentStart = currentStart + neighbours;
-           index++;
-       }*/
-       //System.out.println(f);
-       return g;
+            }else{
+                if(i == result1.size()){
+                    result.add(result2.get(j));
+                    j++;
+                }else{
+                    result.add(result1.get(i));
+                    i++;
+                }
+            }
+        }
+
+        return  result;
     }
 
 

@@ -6,4 +6,8 @@ public class Edge {
     public int tgt;
     public int cmp;
 
+    public int getTgt(){
+        return tgt;
+    }
+
 }

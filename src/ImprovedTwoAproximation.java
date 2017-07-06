@@ -2,12 +2,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by belisariops on 7/4/17.
- * F:R
+ * Created by Belisario Panay, Americo Ferrada on 7/4/17.
+ *
  */
 class ImprovedTwoAproximation {
     private List<Vertex> vertexCover;
 
+    /**
+     * Se obtiene un covertura de vertices a partir de un grafo, utilizando el algoritmo de 2-Aproximacion mejorado.
+     * @param g Grafo
+     */
     ImprovedTwoAproximation(Graph g) {
         List<Vertex> currentVertices = g.getV();
         List<Edge> currentEdges = g.getE();
@@ -55,6 +59,14 @@ class ImprovedTwoAproximation {
         }
     }
 
+
+    /**
+     * Obtiene el vecino con mayor grado a partir de un vertice del grafo.
+     * @param u vertice
+     * @param currentVertices lista de vertices.
+     * @param currentEdges lista de aristas.
+     * @return el vecino con mayor grado.
+     */
     private Vertex getMaximumDegreeNeighbour(Vertex u, List<Vertex> currentVertices, List<Edge> currentEdges) {
         int maximumDegree = -1;
         Vertex maxNeighbourDegreeVertex = null;
@@ -87,6 +99,11 @@ class ImprovedTwoAproximation {
         return maxNeighbourDegreeVertex;
     }
 
+
+    /**
+     * Retorna el tamano de la solucion
+     * @return size of vertex cover
+     */
     int getVertexCoverSize() {
         return vertexCover.size();
     }

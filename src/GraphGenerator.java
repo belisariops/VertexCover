@@ -1,26 +1,34 @@
 import java.util.*;
 
 /**
- * Created by belisariops on 7/4/17.
+ * Created by Belisario Panay, Americo Ferrada on 7/4/17.
+ * Generador aleatorio de grafos, respetando la estructura del grafo.
  */
 
-public class GraphGenerator {
+class GraphGenerator {
 
-    public Graph create(int n, double p) {
-        List<Vertex> vertices = new ArrayList<Vertex>(n);
+    /**
+     * Se crea un grafo aleatorio de tamano n, con probabilida de que exista una arista de p.
+     * Las aristas son creadas aleatoriamente segun el enunciado,  luego se les hace un post proceso
+     * para que respeten la estructura de la implementacion.
+     * @param n numero de vertices.
+     * @param p numero de aristas.
+     * @return retorna un grafo con la probabilidad asignada.
+     */
+    Graph create(int n, double p) {
+        List<Vertex> vertices = new ArrayList<>(n);
 
-        List<Edge> edges = new ArrayList<Edge>();
-        Random r = new Random();
+        Random r = new Random(System.currentTimeMillis());
         float chance;
-        int m = 0;
+        int m;
 
         /*Se crean las aristas con probabilidad p*/
         Edge randEdge;
 
-        List<List<Edge>> buckets = new ArrayList<List<Edge>>(n);
+        List<List<Edge>> buckets = new ArrayList<>(n);
 
         for (int i =0; i<n; i++)
-            buckets.add(new ArrayList<Edge>(n-1));
+            buckets.add(new ArrayList<>(n-1));
 
 
         /*Segun enunciado*/
@@ -48,15 +56,14 @@ public class GraphGenerator {
                 if (bucketEdge.src == bucketEdge.tgt)
                     continue;
                 List<Edge> otherBucket = buckets.get(bucketEdge.tgt);
-                int otherBucketSize = otherBucket.size();
 
-                for (int k =0; k < otherBucketSize; k++) {
-                    Edge thisEdge = otherBucket.get(k);
+                for(Edge thisEdge: otherBucket){
                     if (thisEdge.tgt == bucketEdge.src) {
                         foundEdge = true;
                         break;
                     }
                 }
+
 
                 Edge mirrorEdge = new Edge();
                 mirrorEdge.src = bucketEdge.tgt;
@@ -132,6 +139,11 @@ public class GraphGenerator {
        return new Graph(vertices,sortedY);
     }
 
+    /**
+     * Toma un arreglo de aristas, las invierte y les asigna el indice en que se encontraban antes de la inversion.
+     * @param buckets listas por vertice.
+     * @return la misma lista con cada Edge con sus valores invertidos.
+     */
     private ArrayList<ArrayList<Edge>> invert(List<List<Edge>> buckets) {
         ArrayList<ArrayList<Edge>> result = new ArrayList<>();
         int acc = 0;
@@ -151,6 +163,11 @@ public class GraphGenerator {
         return result;
     }
 
+    /**
+     * Junta  ordena los buckets manteniendo los ordenes parciales.
+     * @param list lista a ordenar
+     * @return retorna la lista mezclada y ordenada.
+     */
     private ArrayList<Edge> merge(ArrayList<ArrayList<Edge>> list){
         if(list.size() == 1){
             return list.get(0);
@@ -158,6 +175,12 @@ public class GraphGenerator {
         return recMerge(new ArrayList<>(list.subList(0,list.size()/2)),new ArrayList<>(list.subList(list.size()/2,list.size())));
     }
 
+    /**
+     * Dada dos listas las junta, ordenando establemente por el primer valor.
+     * @param list1 lista 1.
+     * @param list2 lista 2.
+     * @return una lista con las dos oiginales mezcladas y ordenadas.
+     */
     private ArrayList<Edge> recMerge(ArrayList<ArrayList<Edge>> list1, ArrayList<ArrayList<Edge>> list2){
         ArrayList<Edge> result = new ArrayList<>();
         ArrayList<Edge> result1;

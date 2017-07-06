@@ -2,17 +2,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by belisariops on 7/4/17.
+ * Created by Belisario Panay, Americo Ferrada on 7/4/17.
  *
  */
 class MaximumDegreeHeuristic {
     private List<Vertex> vertexCover;
 
+
+    /**
+     * Algoritmo de la Heuristica de grado mayor. Se guarda la solucion en vertexCover.
+     * @param g Grafo.
+     */
     MaximumDegreeHeuristic(Graph g) {
         List<Edge> currentEdges = g.getE();
         List<Vertex> currentVertices = g.getV();
         int edgesCount = currentEdges.size();
-        vertexCover = new ArrayList<Vertex>();
+        vertexCover = new ArrayList<>();
         while (edgesCount > 0) {
             Vertex u = getVertexWithMaxDegree(currentVertices, currentEdges);
             if (u == null)
@@ -33,6 +38,13 @@ class MaximumDegreeHeuristic {
 
     }
 
+
+    /**
+     * Metodo utilizado por la heuristica y la 2-Aproximacion mejorada para obtener el vertice con mayor grado del grafo.
+     * @param currentVertices vertices.
+     * @param currentEdges aristas.
+     * @return el vertice de mayor grado.
+     */
     static Vertex getVertexWithMaxDegree(List<Vertex> currentVertices,List<Edge> currentEdges) {
         int maxDegree = -1;
         int localDegree;
@@ -65,6 +77,10 @@ class MaximumDegreeHeuristic {
         return maxDegreeVertex;
     }
 
+
+    /**
+     * @return Retorna el tamano de la solucion
+     */
     int getVertexCoverSize() {
         return vertexCover.size();
     }

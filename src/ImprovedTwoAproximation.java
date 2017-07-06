@@ -90,4 +90,8 @@ public class ImprovedTwoAproximation {
     public List<Vertex> getVertexCover() {
         return vertexCover;
     }
+
+    public int getVertexCoverSize() {
+        return vertexCover.size();
+    }
 }

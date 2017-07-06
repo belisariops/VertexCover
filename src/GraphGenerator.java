@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 public class GraphGenerator {
 
-    public Graph create(int n, float p) {
+    public Graph create(int n, double p) {
         List<Vertex> vertices = new ArrayList<Vertex>(n);
 
         List<Edge> edges = new ArrayList<Edge>();

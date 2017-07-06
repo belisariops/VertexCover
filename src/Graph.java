@@ -3,12 +3,18 @@ import java.util.List;
 import java.util.Vector;
 
 /**
- * Created by belisariops on 7/3/17.
+ * Created by Belisario Panay, Americo Ferrada on 7/3/17.
+ * Representa al grafo, posee dos listas, una de vertices y otra de aristas.
  */
 public class Graph {
     private List<Vertex> V;
     private List<Edge> E;
 
+    /**
+     * Crea una grafo vacio, con aristas  y vertices inicializados.
+     * @param numV
+     * @param numE
+     */
     public Graph(int numV, int numE) {
         V = new ArrayList<Vertex>(numV);
         E = new ArrayList<Edge>(2*numE);
@@ -26,6 +32,10 @@ public class Graph {
 
     }
 
+    /**
+     * Crea una copia del grafo g.
+     * @param g
+     */
     public Graph(Graph g) {
         List<Vertex> verticesToCopy = g.getV();
         List<Edge> edgesToCopy = g.getE();
@@ -59,11 +69,22 @@ public class Graph {
 
     }
 
+    /**
+     * Crea un grafo a partir de dos listas, una de vertices  otra de aristas.
+     * Es llamado por el generador aleatorio de grafos.
+     * @param vertices
+     * @param edges
+     */
     public Graph(List<Vertex> vertices,List<Edge> edges) {
         this.V = vertices;
         this.E = edges;
     }
 
+    /**
+     *
+     * @param position
+     * @param first
+     */
     public void setFirstTo(int position, int first) {
         Vertex vertex = this.V.get(position);
         vertex.first = first;

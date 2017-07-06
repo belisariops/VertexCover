@@ -4,16 +4,16 @@
  * source, otro target y la posicion de la arista complementaria en el arreglo
  * de aristas.
  */
-public class Edge {
-    public int src;
-    public int tgt;
-    public int cmp;
+class Edge {
+    int src;
+    int tgt;
+    int cmp;
 
     /**
      * Getter utilizado en el comprador del sort.
-     * @return
+     * @return tgt
      */
-    public int getTgt(){
+    int getTgt(){
         return tgt;
     }
 

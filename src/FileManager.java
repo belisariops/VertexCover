@@ -1,11 +1,13 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by Belisario Panay, Americo Ferrada on 7/3/17.
+ *
  */
+@SuppressWarnings("unused")
+
 public class FileManager {
 
 
@@ -37,8 +39,8 @@ public class FileManager {
             m = Integer.parseInt(currentLine);
             /*Se crea el grafo vacio, que tendra n vertices y m aristas*/
             g = new Graph(n, m);
-            int target = 0;
-            int source = 0;
+            int target;
+            int source;
             int otherSource = -1;
 
 
@@ -90,7 +92,7 @@ public class FileManager {
             if (currentEdge.cmp != -1)
                 continue;
 
-            int j = 0;
+            int j;
             for (j = target.first; j <= target.last; j++) {
                 Edge jEdge = g.getEdgeIn(j);
                 if ((jEdge.cmp == -1) && (jEdge.tgt == currentEdge.src) && (i!=j))      

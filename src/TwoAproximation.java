@@ -5,19 +5,19 @@ import java.util.List;
  * Created by Belisario Panay, Americo Ferrada on 7/3/17.
  *
  */
-public class TwoAproximation {
+class TwoAproximation {
     private List<Vertex> vertexCover;
 
     /**
      * Algoritmo de 2-Aproximacion, que itera mientres queden aristas.
      * Se guarda la lista de vertices que es un cubrimiento en la variable
      * vertexCover.
-     * @param g
+     * @param g grafo.
      */
-    public TwoAproximation(Graph g) {
+    TwoAproximation(Graph g) {
 
         List<Edge> currentEdges = g.getE();
-        vertexCover = new ArrayList<Vertex>();
+        vertexCover = new ArrayList<>();
         int position =0;
         int edgesCount = currentEdges.size();
         while (edgesCount > 0) {
@@ -63,18 +63,9 @@ public class TwoAproximation {
     }
 
     /**
-     * Retorna el arreglo de los vertices que cubren el grafo.
-     * @return
+     * @return retorna el tamano de la solucion
      */
-    public List<Vertex> getVertexCover() {
-        return vertexCover;
-    }
-
-    /**
-     * Retorna el tamano de la solucion
-     * @return
-     */
-    public int getVertexCoverSize() {
+    int getVertexCoverSize() {
         return vertexCover.size();
     }
 

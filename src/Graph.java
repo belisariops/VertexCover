@@ -1,23 +1,22 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by Belisario Panay, Americo Ferrada on 7/3/17.
  * Representa al grafo, posee dos listas, una de vertices y otra de aristas.
  */
-public class Graph {
+class Graph {
     private List<Vertex> V;
     private List<Edge> E;
 
     /**
      * Crea una grafo vacio, con aristas  y vertices inicializados.
-     * @param numV
-     * @param numE
+     * @param numV v
+     * @param numE e
      */
-    public Graph(int numV, int numE) {
-        V = new ArrayList<Vertex>(numV);
-        E = new ArrayList<Edge>(2*numE);
+    Graph(int numV, int numE) {
+        V = new ArrayList<>(numV);
+        E = new ArrayList<>(2*numE);
 
         for (int i=0; i < numV; i++) {
             V.add(new Vertex());
@@ -34,88 +33,83 @@ public class Graph {
 
     /**
      * Crea una copia del grafo g.
-     * @param g
+     * @param g g
      */
-    public Graph(Graph g) {
+    Graph(Graph g) {
         List<Vertex> verticesToCopy = g.getV();
         List<Edge> edgesToCopy = g.getE();
         int n = verticesToCopy.size();
         int m = edgesToCopy.size();
-        this.V = new ArrayList<Vertex>(n);
-        this.E = new ArrayList<Edge>(m);
-        Vertex v;
+        this.V = new ArrayList<>(n);
+        this.E = new ArrayList<>(m);
         Vertex vCopy;
-        for (int i=0; i<n; i++) {
+
+        for(Vertex v : verticesToCopy){
             vCopy = new Vertex();
-            v = verticesToCopy.get(i);
             vCopy.first = v.first;
             vCopy.last = v.last;
             vCopy.index = v.index;
             this.V.add(vCopy);
         }
 
-        Edge e;
         Edge eCopy;
-        for (int j=0; j<m; j++) {
+        for(Edge e: edgesToCopy){
             eCopy = new Edge();
-            e = edgesToCopy.get(j);
             eCopy.src = e.src;
             eCopy.tgt = e.tgt;
             eCopy.cmp = e.cmp;
             this.E.add(eCopy);
         }
 
-
-
     }
 
     /**
      * Crea un grafo a partir de dos listas, una de vertices  otra de aristas.
      * Es llamado por el generador aleatorio de grafos.
-     * @param vertices
-     * @param edges
+     * @param vertices vertice
+     * @param edges arista
      */
-    public Graph(List<Vertex> vertices,List<Edge> edges) {
+    Graph(List<Vertex> vertices,List<Edge> edges) {
         this.V = vertices;
         this.E = edges;
     }
 
     /**
      *
-     * @param position
-     * @param first
+     * @param position pos
+     * @param first first
      */
-    public void setFirstTo(int position, int first) {
+    void setFirstTo(int position, int first) {
         Vertex vertex = this.V.get(position);
         vertex.first = first;
     }
 
-    public void setLastTo(int position, int last) {
+    void setLastTo(int position, int last) {
         Vertex vertex = this.V.get(position);
         vertex.last = last;
     }
 
-    public void changeEdge(int position, int src, int tgt, int cmp) {
+    void changeEdge(int position, int src, int tgt, int cmp) {
         Edge edge = this.E.get(position);
         edge.src = src;
         edge.tgt = tgt;
         edge.cmp = cmp;
     }
 
-    public Vertex getVertexIn(int position) {
+    Vertex getVertexIn(int position) {
         return V.get(position);
     }
 
-    public Edge getEdgeIn(int position) {
+    Edge getEdgeIn(int position) {
         return E.get(position);
     }
 
-    public List<Edge> getE() {
+    List<Edge> getE() {
 
         return E;
     }
 
-    public List<Vertex> getV() {
+    List<Vertex> getV() {
         return V;
     }
 }

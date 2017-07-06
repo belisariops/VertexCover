@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Belisario Panay, Americo Ferrada on 7/5/17
@@ -15,21 +13,9 @@ public class Main {
 
         Timer timer = new Timer();
         timer.start();
-        //Get the file reference
-        Path path = Paths.get("output.txt");
+        Path path;
+        Path pathData;
 
-        //Use try-with-resource to get auto-closeable writer instance
-        /*try (BufferedWriter writer = Files.newBufferedWriter(path))
-        {
-
-            writer.write(Long.toString(timer.stop()));
-            writer.newLine();
-            writer.write(Long.toString(timer.stop()));
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-*/
         Graph g1,g2,g3;
         GraphGenerator generator = new GraphGenerator();
 
@@ -39,20 +25,24 @@ public class Main {
 
         int n;
         double p;
-        double[] pArray = new double[]{0.00005, 0.001, 0.0005, 0.001, 0.05};
+        double[] pArray = new double[]{4, 16, 64, 256, 1024};
         String fileName;
+        String fileNameData;
         double constructionTime,twoAproximationTime,maximumDegreeHeuristicTime,improvedTwoAproximationTime;
 
         for (int i= 10; i<=10; i++) {
             n = (int) Math.pow(2, i);
             fileName = "Experimento_i" + i + ".txt";
+            fileNameData = "Experimento_i" + i + "Data.csv";
             path = Paths.get(fileName);
-            try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            pathData = Paths.get(fileNameData);
+            try (BufferedWriter writer = Files.newBufferedWriter(path);
+                 BufferedWriter writerData = Files.newBufferedWriter(pathData)) {
                 for (int j = 0; j < 3; j++) {
                     for (int k = 0; k < 5; k++) {
                         p = pArray[k];
                         timer.start();
-                        g1 = generator.create(n, p);
+                        g1 = generator.create(n, p/n);
                         constructionTime = timer.stop();
                         g2 = new Graph(g1);
                         g3 = new Graph(g1);
@@ -69,6 +59,8 @@ public class Main {
                         improvedTwoAproximation = new ImprovedTwoAproximation(g3);
                         improvedTwoAproximationTime = timer.stop();
 
+                        writerData.write(n+","+j+","+p/n+","+constructionTime+","+twoAproximationTime+","+maximumDegreeHeuristicTime+","+improvedTwoAproximationTime);
+                        writerData.newLine();
                         writer.write("Tiempo Construccion Grafo con p="+p+", "+g1.getV().size()+" nodos, "+g1.getE().size()/2+" aristas, construido en "+constructionTime+" segundos.");
                         writer.newLine();
                         writer.newLine();

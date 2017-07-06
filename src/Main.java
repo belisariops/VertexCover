@@ -34,7 +34,7 @@ public class Main {
 
         int n;
         double p;
-        double[] pArray = new double[]{0.005, 0.001, 0.0005, 0.001, 0.05};
+        double[] pArray = new double[]{0.00005, 0.001, 0.0005, 0.001, 0.05};
         String fileName;
         double constructionTime,twoAproximationTime,maximumDegreeHeuristicTime,improvedTwoAproximationTime;
 

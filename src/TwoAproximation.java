@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by belisariops on 7/3/17.
+ * Created by Belisario Panay, Americo Ferrada on 7/3/17.
  */
 public class TwoAproximation {
     private List<Vertex> vertexCover;

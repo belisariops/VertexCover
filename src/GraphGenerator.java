@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.function.Function;
 
 /**
- * Created by belisariops on 7/4/17.
+ * Created by Belisario Panay, Americo Ferrada on 7/4/17.
  */
 
 public class GraphGenerator {
@@ -12,7 +12,7 @@ public class GraphGenerator {
         List<Vertex> vertices = new ArrayList<Vertex>(n);
 
         List<Edge> edges = new ArrayList<Edge>();
-        Random r = new Random();
+        Random r = new Random(System.currentTimeMillis());
         float chance;
         int m = 0;
 

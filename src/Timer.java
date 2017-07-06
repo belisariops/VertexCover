@@ -21,7 +21,5 @@ public class Timer {
         return (double)elapsedTime/1000000000.0;
     }
 
-    public double  getElapsedTime() {
-        return (double)elapsedTime/1000000000.0;
-    }
+
 }

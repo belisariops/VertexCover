@@ -6,7 +6,7 @@ import java.util.List;
  *
  */
 class MaximumDegreeHeuristic {
-    private List<Vertex> vertexCover;
+    private int vertexCoverSize;
 
 
     /**
@@ -17,7 +17,7 @@ class MaximumDegreeHeuristic {
         List<Edge> currentEdges = g.getE();
         List<Vertex> currentVertices = g.getV();
         int edgesCount = currentEdges.size();
-        vertexCover = new ArrayList<>();
+        List<Vertex> vertexCover = new ArrayList<>();
         while (edgesCount > 0) {
             Vertex u = getVertexWithMaxDegree(currentVertices, currentEdges);
             if (u == null)
@@ -35,6 +35,7 @@ class MaximumDegreeHeuristic {
 
 
         }
+        vertexCoverSize = vertexCover.size();
 
     }
 
@@ -82,6 +83,6 @@ class MaximumDegreeHeuristic {
      * @return Retorna el tamano de la solucion
      */
     int getVertexCoverSize() {
-        return vertexCover.size();
+        return vertexCoverSize;
     }
 }

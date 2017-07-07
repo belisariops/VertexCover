@@ -6,7 +6,7 @@ import java.util.List;
  *
  */
 class TwoAproximation {
-    private List<Vertex> vertexCover;
+    private int vertexCoverSize;
 
     /**
      * Algoritmo de 2-Aproximacion, que itera mientres queden aristas.
@@ -17,7 +17,7 @@ class TwoAproximation {
     TwoAproximation(Graph g) {
 
         List<Edge> currentEdges = g.getE();
-        vertexCover = new ArrayList<>();
+        List<Vertex> vertexCover = new ArrayList<>();
         int position =0;
         int edgesCount = currentEdges.size();
         while (edgesCount > 0) {
@@ -57,6 +57,7 @@ class TwoAproximation {
             }
 
         }
+        vertexCoverSize = vertexCover.size();
 
 //        for (Edge e : currentEdges)
 //            System.out.println(e);
@@ -66,7 +67,7 @@ class TwoAproximation {
      * @return retorna el tamano de la solucion
      */
     int getVertexCoverSize() {
-        return vertexCover.size();
+        return vertexCoverSize;
     }
 
 }

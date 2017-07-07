@@ -6,7 +6,7 @@ import java.util.List;
  *
  */
 class ImprovedTwoAproximation {
-    private List<Vertex> vertexCover;
+    private int vertexCoverSize;
 
     /**
      * Se obtiene un covertura de vertices a partir de un grafo, utilizando el algoritmo de 2-Aproximacion mejorado.
@@ -15,7 +15,7 @@ class ImprovedTwoAproximation {
     ImprovedTwoAproximation(Graph g) {
         List<Vertex> currentVertices = g.getV();
         List<Edge> currentEdges = g.getE();
-        vertexCover = new ArrayList<>();
+        List<Vertex> vertexCover = new ArrayList<>();
         int edgeCount = currentEdges.size();
         while (edgeCount > 0) {
             Vertex u = MaximumDegreeHeuristic.getVertexWithMaxDegree(currentVertices, currentEdges);
@@ -57,6 +57,8 @@ class ImprovedTwoAproximation {
             }
 
         }
+
+        vertexCoverSize = vertexCover.size();
     }
 
 
@@ -105,6 +107,6 @@ class ImprovedTwoAproximation {
      * @return size of vertex cover
      */
     int getVertexCoverSize() {
-        return vertexCover.size();
+        return vertexCoverSize;
     }
 }

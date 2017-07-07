@@ -92,6 +92,8 @@
 	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 	\section{Diseño Teórico}
+	
+	\subsection{Estructuras y Probabilidades}
     
     En esta sección se mostrará la estructura utilizada para representar el grafo, además de la descripción de las clases utilizadas en la implementación.
 	
@@ -126,9 +128,9 @@
 	
 	Que para todo $n = 2^i$ con $i\in{10,11,...,20}$, p se encuentra en el intervalo $[1/n,1]$ como se pidió.
 
+	\subsection{Código}
 	
-	
-	\subsection{Main}
+	\subsubsection{Main}
 	
 	En Main se obtendran los archivos donde se registrán los tiempos de creación de los grafo, la ejecucion de los tres algoritmos, además de la cantidad de vertices que cada algoritmo obtiene para poder cubrir el grafo, para luego poder graficar. Para esto se hizo lo siguiente.
 	\begin{itemize}
@@ -138,68 +140,93 @@
 		\item En cada uno de estos experimentos sobre un $p$, se genera un grafo aleaotrio midiendo su tiempo de contrucción y se crean dos copias de esta para que cada algoritmo trabaje con una copia (pudiendo cambiarla).Luego se ejecuta cada algoritmo midiendo sus tiempos de ejecucion y registrando la cantidad de vertices de su solución.
 		
 	\end{itemize}
-
-	\subsection{Graph}
-
-	Preprocesa el texto para eliminar todos los caracteres que no serán utilizados en los experimentos, además elige aleatoriamente palabras pertenecientes al texto.
-
-	Posee 3 métodos auxiliares:
-	\begin{itemize}
-		\item clean(): Elimina del texto todos los caracteres que no serán utilizados.
-		\item getRandomWord(ArrayList<String> words): Dato una lista elige un elemento de manera aleatoria.
-		\item getNextRandom(): Entrega palabras del texto, como una \textit{queue}. 
-	\end{itemize}
-
-	\subsection{Vertex}
-
-	Crea el suffix array y también realiza la busqueda de un patrón sobre este.
 	
-	\begin{itemize}
-		\item constructArray(int[] text, int n, int alphabet): Recive un texto representado con enteros y el tamaño del alfabeto, retorna el arreglo de sufijos (como arreglo de enteros).
-		\item sort(int[] a, int[] array, int n, int buckets) : Radix Sort de una lista de triplas de caracteres en un alfabeto, usando counting sort.
-		\item getNextRandom(): Entrega palabras del texto, como una \textit{queue}.
-		\item findPattern(String pattern): Esta funcion encuentra las posiciones en el texto donde se puede encontrar el  patron, haciendo busqueda binaria en el suffixArray y en cada busqueda binaria comparando el patron con el sufijo, caracter a caracter.
-	\end{itemize}
+	\subsubsection{Vertex}
 
-	\subsection{Edge}
+	Clase que representa un vértice de la estructura, posee un primer valor que representa donde empieza las aristas de este vértice y un ultimo que es donde terminan las aristas de este vértice en el arreglo de aristas.
 
-	Esta clase crea un automata recibiendo un \textit{String} y crea la tabla de transiciones.
+	\subsubsection{Edge}
+	Clase que representa una arista de la estructura,posee una fuente que representa una posición de donde comienza una arista y un blanco que representa el vertice donde termina la arista. 
 	
-	\begin{itemize}
-	 \item getCantRepeticiones(): Entrega la cantidad de repeticiones del patrón en el texto.
-	\end{itemize}
-	
-	\subsection{GraphGenerator}
 
-	Esta clase crea un automata recibiendo un \textit{String} y crea la tabla de transiciones.
+	\subsubsection{Graph}
+
+	Representa al grafo, posee dos listas, una de vertices y otra de aristas.
+
+	Posee tres constructor y dos métodos auxiliares:
+	\begin{itemize}
+		\item Graph(int n, int m):Crea una grafo vacio, con aristas  y vertices inicializados.
+		\item Graph(Graph g):Crea una copia del grafo g.
+		\item Graph(List<Vertex> vertices, List<Edge> edges):Crea un grafo a partir de dos listas, una de vertices  otra de aristas.
+		\item setFirstTo(int position, int first):Cambia el primer valor del vertice en la posicion \textit{position}, por el valor \textit{first}.
+		\item setLastTo(int position, int last):Cambia el ultimo valor del vertice en la posicion \textit{position}, por el valor \textit{last}
+		\item changeEdge(int position, int src, int tgt, int cmp): Cambia los valores de la edge en la posicion \textit{position} del arreglo de aristas, con los valores entregados en el método.
+		\item getVertexIn(int position): Entrega el vertice que se encuentra en esta posición en la lista de vértices.
+		\item getEdgeIn(int position): Entrega la arista que se encuentra en esta posición en la lista de aristas.
+		\item getE(): Entrega la lista de aristas.
+		\item getV(): Entrega la lista de vértices.
+	\end{itemize}
+    
+    \subsubsection{GraphGenerator}
+
+	Genera un grafo aleatorio.
 	
 	\begin{itemize}
-	 \item getCantRepeticiones(): Entrega la cantidad de repeticiones del patrón en el texto.
+	 \item create(int n, double p): Se crea un grafo aleatorio de tamano n, con probabilida de que exista una arista de p. Las aristas son creadas aleatoriamente segun el enunciado,  luego se les hace un post proceso.
+	 \item invert(List(List<Edge>) buckets): Toma un arreglo de aristas, las invierte y les asigna el indice en que se encontraban antes de la inversion.
+	 \item merge(ArrayList(ArrayList<Edge>) list): Junta  ordena los buckets de aristas manteniendo los ordenes parciales.
+	 \item recMerge(ArrayList(ArrayList<Edge>) list1, ArrayList(ArrayList<Edge>) list2): Dada dos listas las junta, ordenando establemente por el primer valor.
 	\end{itemize}
 	
-	\subsection{TwoAproximation}
+	\subsubsection{TwoAproximation}
 
-	Esta clase crea un automata recibiendo un \textit{String} y crea la tabla de transiciones.
+	Algoritmo de la 2-Aproximación.
 	
 	\begin{itemize}
-	 \item getCantRepeticiones(): Entrega la cantidad de repeticiones del patrón en el texto.
+	 \item TwoAproximation(Graph g): Algoritmo de 2-Aproximacion, que itera mientres queden aristas. Se guarda la lista de vertices que es un cubrimiento en la variable
+     vertexCover.
+     \item getVertexCoverSize(): Retorna el tamaño de la solución.
 	\end{itemize}
 	
-	\subsection{MaximumDegreeHeuristic}
+	\subsubsection{MaximumDegreeHeuristic}
 
-	Esta clase crea un automata recibiendo un \textit{String} y crea la tabla de transiciones.
+	Algoritmo de la Heuristica de grado mayor. 
 	
 	\begin{itemize}
-	 \item getCantRepeticiones(): Entrega la cantidad de repeticiones del patrón en el texto.
+	 \item MaximumDegreeHeuristic(Graph g): A partir de un grafo, se crea un cobertura con la Heurística de grado mayor.
+	 \item getVertexWithMaxDegree(List<Vertex> currentVertices,List<Edge> currentEdges): Metodo para obtener el vertice con mayor grado del grafo.
+	 \item getVertexCoverSize(): Retorna el tamaño de la solución.
 	\end{itemize}
 	
-	\subsection{ImprovedTwoAproximation}
+	\subsubsection{ImprovedTwoAproximation}
 
-	Esta clase crea un automata recibiendo un \textit{String} y crea la tabla de transiciones.
+	Algoritmo de la 2-Aproximación mejorada.
+    
+	\begin{itemize}
+	 \item ImprovedTwoAproximation(Graph g):  Se obtiene un covertura de vertices a partir de un grafo, utilizando el algoritmo de 2-Aproximacion mejorado.
+    \item getMaximumDegreeNeighbour(Vertex u, List<Vertex> currentVertices, List<Edge> currentEdges): Obtiene el vecino con mayor grado a partir de un vertice del grafo.
+    \item getVertexCoverSize(): Retorna el tamaño de la solución.
+	\end{itemize}
+	
+	\subsubsection{Timer}
+
+	Cronometro para medir los tiempos de construcción del grafo aleatorio, y los tiempos de ejecución de los algoritmos. 
 	
 	\begin{itemize}
-	 \item getCantRepeticiones(): Entrega la cantidad de repeticiones del patrón en el texto.
+	 \item start(): Comienza el cronómetro.
+	 \item stop(): Detiene el cronómetro, retorna el tiempo transcurrido en segundos.
 	\end{itemize}
+
+	\subsubsection{FileManager}
+
+	Este código pertenece al profesor \href{https://users.dcc.uchile.cl/~jfuentess/}{José Fuentes Sepúlveda},fue traducido desde C.
+	
+	\begin{itemize}
+	 \item  readGraphFromFile(String fileName): La funcion recibe un nombre de archivo y devuelve un objeto Graph con toda la informacion del archivo.
+	\end{itemize}
+	
+	
+	
 
 
 
@@ -388,14 +415,6 @@
 	
 	Estas dos implementaciones funcionan para distintos propositos, el enfoque del Suffix Array tiene un orden lineal para construirse, pero posee un tiempo menor para la busqueda en el arreglo, por lo que debería ser usado en el caso de hacer muchas consultas sobre un texto. En el caso del Automata, la construcción toma muy poco tiempo pero correrlo sobre el texto es lineal al tamaño del texto, por lo que este enfoque puede ser usado cuando se quiere hacer pocas consultas sobre el texto.
 	
-	\newpage
-	
-	\section{Anexos}
-        \subsection{Anexo 1}
-        
-		\includegraphics[width=0.8\textwidth]{figura3.jpg}
-
-		Figura 3: Experimento con corrección de busqueda en Suffix Array texto de 1MB, con largo de palabra de 1 a 10.
        
 	
 	
